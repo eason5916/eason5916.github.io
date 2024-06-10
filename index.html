@@ -280,7 +280,7 @@
                 document.getElementById('messages').scrollTop = document.getElementById('messages').scrollHeight; // 自動滾動到底部
             }
 
-            function updateSceneImage(scene) {
+           function updateSceneImage(scene) {
                 var imagePath;
                 if (scene.includes("村莊")) {
                     imagePath = './img/village.png';
@@ -293,7 +293,9 @@
                 } else {
                     imagePath = './img/background.png';
                 }
-                document.getElementById('sceneImage').innerHTML = `<img src="${imagePath}" alt="Scene Image" style="width:100%;">`;
+                document.getElementById('sceneImage').style.backgroundImage = `url('${imagePath}')`;
+                document.getElementById('sceneImage').style.backgroundSize = 'cover';
+                document.getElementById('sceneImage').style.backgroundPosition = 'center';
             }
         }
     </script>
