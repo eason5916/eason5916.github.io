@@ -128,6 +128,23 @@
                 scene: "村莊",
                 npc: "村長：“英勇的戰士，我們需要你的幫助！我們的公主被魔王抓走了，據說她被關在黑暗城堡中。我們村子裡沒有其他人能夠完成這個任務。”",
                 options: [
+                    { text: "英雄：“我會立即出發！”", nextScene: 2 },
+                    { text: "英雄：“告訴我更多有關魔王的信息。”", nextScene: 1.1 },
+                    { text: "英雄：“我需要先準備一下。”", nextScene: 1.2 }
+                ]
+            },
+            1.1: {
+                scene: "村莊",
+                npc: "村長：“魔王非常強大，只有最勇敢和智慧的戰士才能打敗他。”",
+                options: [
+                    { text: "英雄：“我會立即出發！”", nextScene: 2 },
+                    { text: "英雄：“我需要先準備一下。”", nextScene: 1.2 }
+                ]
+            },
+            1.2: {
+                scene: "村莊",
+                npc: "村民：“這裡有一些裝備和情報，希望對你有幫助。”",
+                options: [
                     { text: "英雄：“我會立即出發！”", nextScene: 2 }
                 ]
             },
@@ -135,21 +152,69 @@
                 scene: "森林關卡",
                 npc: "守衛：“誰敢擅闖魔王的領地！”",
                 options: [
+                    { text: "英雄：“我來這裡是為了拯救公主！”", nextScene: 3 },
+                    { text: "英雄：“我只是一個迷路的旅人。”", nextScene: 2.1 },
+                    { text: "英雄：“讓我們來做個交易吧。”", nextScene: 2.2 }
+                ]
+            },
+            2.1: {
+                scene: "森林關卡",
+                npc: "守衛：“離開這裡，否則別怪我不客氣！”",
+                options: [
                     { text: "英雄：“我來這裡是為了拯救公主！”", nextScene: 3 }
+                ]
+            },
+            2.2: {
+                scene: "森林關卡",
+                npc: "守衛：“拿出你的金幣，我就讓你過去。”",
+                options: [
+                    { text: "英雄給了守衛一些金幣，守衛讓路。", nextScene: 3 }
                 ]
             },
             3: {
                 scene: "迷宮入口",
                 npc: "石碑：“只有智慧與勇氣兼備者才能穿越這迷宮。”",
                 options: [
-                    { text: "英雄仔細觀察石碑上的符號，試圖解開謎題。", nextScene: 4 }
+                    { text: "英雄仔細觀察石碑上的符號，試圖解開謎題。", nextScene: 4 },
+                    { text: "英雄尋找其他進入迷宮的方法。", nextScene: 3.1 },
+                    { text: "英雄：“我需要幫助。”", nextScene: 3.2 }
+                ]
+            },
+            3.1: {
+                scene: "迷宮入口",
+                npc: "英雄在迷宮外徘徊，找到一個秘密通道，但通道內有額外的陷阱和敵人。",
+                options: [
+                    { text: "英雄選擇通過秘密通道，面臨更多挑戰。", nextScene: 4 }
+                ]
+            },
+            3.2: {
+                scene: "迷宮入口",
+                npc: "神秘老人：“這裡有一些提示和道具，可以幫助你穿越迷宮。”",
+                options: [
+                    { text: "英雄得到幫助，順利進入迷宮。", nextScene: 4 }
                 ]
             },
             4: {
                 scene: "黑暗城堡深處",
                 npc: "魔王：“你終於來了，愚蠢的英雄。你以為自己能打敗我？”",
                 options: [
+                    { text: "英雄：“為了公主，我必須打敗你！”", nextScene: 5 },
+                    { text: "英雄：“我們能不能談談？”", nextScene: 4.1 },
+                    { text: "英雄：“這裡有一個秘密武器。”", nextScene: 4.2 }
+                ]
+            },
+            4.1: {
+                scene: "黑暗城堡深處",
+                npc: "魔王：“談判無效，準備戰鬥吧！”",
+                options: [
                     { text: "英雄：“為了公主，我必須打敗你！”", nextScene: 5 }
+                ]
+            },
+            4.2: {
+                scene: "黑暗城堡深處",
+                npc: "英雄使用秘密武器，給予魔王重創。",
+                options: [
+                    { text: "英雄：“現在是決戰的時刻！”", nextScene: 5 }
                 ]
             },
             5: {
@@ -182,10 +247,10 @@
                 if (message !== '') {
                     displayMessage(message, 'user');
                     document.getElementById('messageInput').value = '';
-                    // 自动继续到下一场景
-                    if (script[currentScene].options && script[currentScene].options[0]) {
-                        currentScene = script[currentScene].options[0].nextScene;
-                        setTimeout(() => loadScene(currentScene), 1000); // 延迟1秒继续
+                    // 清除上一场景的选项
+                    var optionsContainer = document.getElementById('optionsContainer');
+                    if (optionsContainer) {
+                        optionsContainer.remove();
                     }
                 }
             });
@@ -250,6 +315,3 @@
     </script>
 </body>
 </html>
-
-
-
